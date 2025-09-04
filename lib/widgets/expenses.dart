@@ -30,14 +30,21 @@ class _ExpensesState extends State<Expenses> {
 
   void _addExpenseTrackerValue() {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
-      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
+      builder: (ctx) => NewExpense(onAddExpense: _addExpense,),
     );
   }
 
   void _addExpense(Expense expense) {
     setState(() {
       _registeredExpense.add(expense);
+    });
+  }
+
+  void _removeExpense(Expense expense) {
+    setState(() {
+      _registeredExpense.remove(expense);
     });
   }
 
@@ -53,7 +60,7 @@ class _ExpensesState extends State<Expenses> {
       body: Column(
         children: [
           Text('Expenses Chart'),
-          Expanded(child: ExpensesList(expenses: _registeredExpense)),
+          Expanded(child: ExpensesList(expenses: _registeredExpense,removeExpense: _removeExpense,)),
         ],
       ),
     );
