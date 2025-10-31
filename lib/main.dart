@@ -1,6 +1,8 @@
 import 'package:expense_tracker/widgets/expenses.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'screens/splashscreen.dart';
+import 'screens/authscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: Color.fromARGB(255, 96, 59, 181),
@@ -54,7 +56,19 @@ void main() {
           ),
         ),
       ),
-      home: Expenses(),
+      home: AuthScreen(),
+      // home: StreamBuilder(
+      //   stream: FirebaseAuth.instance.authStateChanges(),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.waiting) {
+      //       return SplashScreen();
+      //     }
+      //     if (snapshot.hasData) {
+      //       return const Expenses();
+      //     }
+      //     return const AuthScreen();
+      //   },
+      // ),
     ),
   );
   //});
