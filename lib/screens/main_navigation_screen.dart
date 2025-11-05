@@ -2,6 +2,7 @@ import 'package:expense_tracker/screens/fitness_tracking/fitness_dashboard.dart'
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/screens/expenses.dart';
 import 'package:expense_tracker/main.dart';
+import 'package:expense_tracker/main.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -29,7 +30,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             _selectedIndex = index;
           });
         },
-        selectedItemColor: kColorScheme.primary,
+        selectedItemColor: kPrimaryColor,
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
