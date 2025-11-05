@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/main.dart';
 
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key, required this.onAddExpense});
@@ -187,6 +188,10 @@ class _NewExpenseState extends State<NewExpense> {
                         ElevatedButton(
                           onPressed: _submitform,
                           child: const Text('Save Expense'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: kPrimaryColor,
+                            foregroundColor: Colors.white,
+                          ),
                         ),
                       ],
                     )

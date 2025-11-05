@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 
 // Screens
-import 'screens/authscreen.dart';
+import 'screens/authentication/authscreen.dart';
 import 'screens/main_navigation_screen.dart';
 
 /// 🎨 Global Unified Color Scheme

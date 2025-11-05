@@ -1,6 +1,6 @@
 import 'package:expense_tracker/screens/fitness_tracking/fitness_dashboard.dart';
 import 'package:flutter/material.dart';
-import 'package:expense_tracker/screens/expenses.dart';
+import 'package:expense_tracker/screens/expense_tracking/expenses.dart';
 import 'package:expense_tracker/main.dart';
 import 'package:expense_tracker/main.dart';
 
