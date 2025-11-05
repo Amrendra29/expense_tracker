@@ -1,5 +1,6 @@
-// lib/fitness_screen.dart
 import 'package:flutter/material.dart';
+import 'package:pedometer/pedometer.dart';
+import 'dart:async';
 
 class FitnessScreen extends StatefulWidget {
   const FitnessScreen({super.key});
@@ -9,24 +10,54 @@ class FitnessScreen extends StatefulWidget {
 }
 
 class _FitnessScreenState extends State<FitnessScreen> {
-  int steps = 6500;
-  int calories = 220;
+  late Stream<StepCount> _stepCountStream;
+  int _steps = 0;
   int goalSteps = 10000;
+  double _calories = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    try {
+      _stepCountStream = Pedometer.stepCountStream;
+      _stepCountStream.listen(onStepCount).onError(onStepCountError);
+    } catch (e) {
+      debugPrint('Error initializing Pedometer: $e');
+    }
+  }
+
+  void onStepCount(StepCount event) {
+    // event.steps is cumulative since last reboot, so we display directly for now
+    setState(() {
+      _steps = event.steps;
+      _calories = _steps * 0.04; // Rough estimate: 0.04 kcal per step
+    });
+  }
+
+  void onStepCountError(error) {
+    debugPrint('Step Count Error: $error');
+  }
 
   @override
   Widget build(BuildContext context) {
-    double progress = steps / goalSteps;
+    double progress = (_steps % goalSteps) / goalSteps;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Fitness Tracker"),
         backgroundColor: const Color(0xFF3A0CA3),
       ),
+      backgroundColor: const Color(0xFFF9F6FF),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 20),
             Text(
               "Today's Summary",
               style: Theme.of(context).textTheme.headlineMedium,
@@ -67,7 +98,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
                   color: Colors.deepPurple,
                 ),
                 title: const Text("Steps"),
-                subtitle: Text("$steps / $goalSteps"),
+                subtitle: Text("$_steps / $goalSteps"),
               ),
             ),
             const SizedBox(height: 10),
@@ -81,30 +112,14 @@ class _FitnessScreenState extends State<FitnessScreen> {
                   color: Colors.redAccent,
                 ),
                 title: const Text("Calories Burned"),
-                subtitle: Text("$calories kcal"),
+                subtitle: Text("${_calories.toStringAsFixed(1)} kcal"),
               ),
             ),
             const Spacer(),
             Center(
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 12,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    steps += 500;
-                    calories += 20;
-                  });
-                },
-                icon: const Icon(Icons.add),
-                label: const Text("Add Activity"),
+              child: Text(
+                "Move around to see real-time updates!",
+                style: TextStyle(color: Colors.grey.shade600),
               ),
             ),
           ],

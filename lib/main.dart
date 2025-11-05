@@ -1,5 +1,6 @@
 import 'package:expense_tracker/screens/fitness_screen.dart';
 import 'package:expense_tracker/screens/expenses.dart';
+import 'package:expense_tracker/screens/main_navigation_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/splashscreen.dart';
 import 'screens/authscreen.dart';
@@ -70,7 +71,7 @@ class App extends StatelessWidget {
             return SplashScreen();
           }
           if (snapshot.hasData) {
-            return const Expenses();
+            return const MainNavigationScreen();
           }
           return const AuthScreen();
         },
