@@ -43,3 +43,40 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Flutter and Dart
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+
+# Android
+.gradle/
+captures/
+local.properties
+.cxx/
+GeneratedPluginRegistrant.java
+
+# Keystores (very important)
+key.properties
+**/*.keystore
+**/*.jks
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.podspec
+
+# Firebase / Environment files
+.env
+*.json
+!firebase_options.dart  # only keep this one
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Misc
+pubspec.lock
